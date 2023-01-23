@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# initiate user to bypass auth
+User.create(name: 'Admin', username: 'admin', email: 'admin@gmail.com', password: 'admin123')
+puts 'the first user has been created'
