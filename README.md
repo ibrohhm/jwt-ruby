@@ -6,6 +6,13 @@ Implement JWT as token-based auth with ruby-on-rails
 
 This repo will try to implement JWT as token-based auth to simulate CRUD users with auth token. First, user need to request endpoint `/login` to get access token then the *token* will be used as header params to request any endpoint
 
+## Setup
+1. Clone this repo
+2. `bundle install` -> install all dependencies
+3. `rake db:migrate` -> migrate all databases
+4. `rake db:seed` -> initiate first user
+5. `rails s` -> running the project
+
 ## Endpoints
 
 1. `POST /auth/login` -> to retrieve token for specific user
@@ -220,45 +227,68 @@ set `before_action :authorize` to call method `authorize` in *app/controllers/ap
 resources :users
 ```
 
+## Examples
+
 run the project `rails s` and try some endpoints
 
-*endpoint index*
-```
-curl --location --request GET 'localhost:3000/users' \
---header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
-```
+<details>
+  <summary>endpoint index</summary>
 
-*endpoint show*
-```
-curl --location --request GET 'localhost:3000/users/1' \
---header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
-```
+  ```
+  curl --location --request GET 'localhost:3000/users' \
+  --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
+  ```
+</details>
 
-*endpoint create*
-```
-curl --location --request POST 'localhost:3000/users' \
---header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "user",
-    "username": "user",
-    "email": "user@gmail.com",
-    "password": "user123"
-}'
-```
 
-*endpoint update*
-```
-curl --location --request PATCH 'localhost:3000/users/2' \
---header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "user2"
-}'
-```
+<details>
+  <summary>endpoint show</summary>
 
-*endpoint delete*
-```
-curl --location --request DELETE 'localhost:3000/users/2' \
---header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
-```
+  ```
+  curl --location --request GET 'localhost:3000/users/1' \
+  --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
+  ```
+</details>
+
+<details>
+  <summary>endpoint create</summary>
+
+  ```
+  curl --location --request POST 'localhost:3000/users' \
+  --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "name": "user",
+      "username": "user",
+      "email": "user@gmail.com",
+      "password": "user123"
+  }'
+  ```
+</details>
+
+<details>
+  <summary>endpoint update</summary>
+
+  ```
+  curl --location --request PATCH 'localhost:3000/users/2' \
+  --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "name": "user2"
+  }'
+  ```
+</details>
+
+<details>
+  <summary>endpoint delete</summary>
+
+  ```
+  curl --location --request DELETE 'localhost:3000/users/2' \
+  --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJyZXNvdXJjZV9vd25lcl9pZCI6MSwiZXhwIjoxNjc0NDQzMDMwfQ.CtSR4XtuQcjqFQ4qMUAn_lb5of9eUrNiHPlGSbJuLhCC43XZRRY_ZcAWRfgJrZ7PTLIjgmtL8Lqk9fAqkgLyPrh9ifgAKBhtDXfkjXPFdT3GrRoX_9F96WfZqD29NY0-H6RCm6S3sYlRoJoWs-flRUZyf6dtz3lsNS1uHsjV1VTXOG7lrspKD9E8i7NHzVUNyDIyQEUHVqqxtHxHYMBTwRF_AQQERqYEOfMY0vYJj0GBSAZ5jLQhuIxfB3zHvjHdB5T6r13UYES5zoQLNOrxXPlfLzi_vsP8DuR2mnGvwmtIsUpwLeH_ywe5bMQKOVvBP1DysGb2lTzgOFccfezFgQ'
+  ```
+</details>
+
+## Resources
+1. https://jwt.io/
+2. https://github.com/jwt/ruby-jwt
+3. https://github.com/bcrypt-ruby/bcrypt-ruby
